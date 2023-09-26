@@ -33,7 +33,8 @@ steps:
       - install
       - strimzi
       - strimzi/strimzi-kafka-operator
-      - -namespace kafka
+      - --namespace
+      - kafka
     env:
       - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
       - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
