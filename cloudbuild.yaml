@@ -1,14 +1,14 @@
 steps:
   # Configure a kubectl workspace for this project
-  # - name: gcr.io/cloud-builders/kubectl
-  #   args:
-  #     - create 
-  #     - ns
-  #     - kafka
-  #   env:
-  #     - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
-  #     - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
-  #     - KUBECONFIG=/workspace/.kube/config
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - create 
+      - ns
+      - kafka
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
   # Deploy with Helm
   - name: gcr.io/$PROJECT_ID/helm
     args:
@@ -42,10 +42,6 @@ steps:
       - kafka.yaml 
       - -n 
       - kafka
-    env:
-      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
-      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
-      - KUBECONFIG=/workspace/.kube/config
 timeout: 1200s
 substitutions:
   _CUSTOM_ZONE: us-central1-c
