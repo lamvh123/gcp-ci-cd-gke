@@ -15,4 +15,4 @@ metadata:
  name: qsprod
 description: production cluster
 gke:
- cluster: projects/my-second-project-399702/locations/us-central1/clusters/cluster-1
+ cluster: projects/my-second-project-399702/locations/us-central1-c/clusters/cluster-1
