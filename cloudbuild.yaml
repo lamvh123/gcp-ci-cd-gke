@@ -52,4 +52,3 @@ timeout: 1200s
 substitutions:
   _CUSTOM_ZONE: us-central1-c
   _CUSTOM_CLUSTER: cluster-1
-
