@@ -16,16 +16,18 @@ steps:
       - add
       - strimzi
       - https://strimzi.io/charts/
-    #env:
-      #- KUBECONFIG=/workspace/.kube/config
-      #- TILLERLESS=false
-      #- TILLER_NAMESPACE=kube-system
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
   - name: gcr.io/$PROJECT_ID/helm
     args:
       - repo
       - update
-    #env:
-      #- KUBECONFIG=/workspace/.kube/config
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
   - name: gcr.io/$PROJECT_ID/helm
     args:
       - install
@@ -33,8 +35,10 @@ steps:
       - strimzi/strimzi-kafka-operator
       - -namespace
       - kafka
-    #env:
-      #- KUBECONFIG=/workspace/.kube/config
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
   - name: gcr.io/cloud-builders/kubectl
     args:
       - apply
