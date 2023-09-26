@@ -10,7 +10,7 @@ steps:
   #     - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
   #     - KUBECONFIG=/workspace/.kube/config
   # Deploy with Helm
-  - name: gcr.io/$PROJECT_ID/helm
+  - name: gcr.io/$PROJECT_ID/cloud-builders-helm
     args:
       - repo
       - add
@@ -20,13 +20,13 @@ steps:
       #- KUBECONFIG=/workspace/.kube/config
       #- TILLERLESS=false
       #- TILLER_NAMESPACE=kube-system
-  - name: gcr.io/$PROJECT_ID/helm
+  - name: gcr.io/$PROJECT_ID/cloud-builders-helm
     args:
       - repo
       - update
     #env:
       #- KUBECONFIG=/workspace/.kube/config
-  - name: gcr.io/$PROJECT_ID/helm
+  - name: gcr.io/$PROJECT_ID/cloud-builders-helm
     args:
       - install
       - strimzi
