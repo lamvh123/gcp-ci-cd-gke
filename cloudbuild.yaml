@@ -22,7 +22,6 @@ steps:
     args:
       - uninstall
       - strimzi
-      - strimzi/strimzi-kafka-operator
       - --namespace
       - kafka
     env:
