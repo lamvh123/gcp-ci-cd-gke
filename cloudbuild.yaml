@@ -6,7 +6,6 @@ steps:
       - -t
       - gcr.io/$PROJECT_ID/helm
       - helm
-
   # Push my-app image to Google Cloud Registry
   - name: gcr.io/cloud-builders/docker
     args:
