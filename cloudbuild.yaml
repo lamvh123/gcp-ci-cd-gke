@@ -1,4 +1,28 @@
 steps:
+  # Build helm image image
+  - name: gcr.io/cloud_builders/docker
+    args:
+      - build
+      - -t
+      - gcr.io/$PROJECT_ID/helm
+      - helm/Dockerfile
+
+  # Push my-app image to Google Cloud Registry
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA
+  # create namspace
+  - name: gcr.io/cloud-builders/kubectl
+    args:
+      - create
+      - namespace
+      - kafka
+    allowExitCodes: [1]
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
   # Deploy with Helm
   - name: gcr.io/$PROJECT_ID/helm
     args:
@@ -28,17 +52,18 @@ steps:
   #     - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
   #     - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
   #     - KUBECONFIG=/workspace/.kube/config
-  # - name: gcr.io/$PROJECT_ID/helm
-  #   args:
-  #     - install
-  #     - strimzi
-  #     - strimzi/strimzi-kafka-operator
-  #     - --namespace
-  #     - kafka
-  #   env:
-  #     - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
-  #     - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
-  #     - KUBECONFIG=/workspace/.kube/config
+  - name: gcr.io/$PROJECT_ID/helm
+    args:
+      - install
+      - strimzi
+      - strimzi/strimzi-kafka-operator
+      - --namespace
+      - kafka
+    allowExitCodes: [1]
+    env:
+      - CLOUDSDK_COMPUTE_ZONE=$_CUSTOM_ZONE
+      - CLOUDSDK_CONTAINER_CLUSTER=$_CUSTOM_CLUSTER
+      - KUBECONFIG=/workspace/.kube/config
   - name: 'gcr.io/cloud-builders/gcloud'
     id: Deploy
     entrypoint: 'bash'
